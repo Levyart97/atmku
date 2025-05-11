@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Laporan Uang Kejepit</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 400px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="time"] {
+            width: 100%;
+            padding: 6px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 8px 12px;
+        }
+
+        textarea {
+            margin-top: 15px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <h2>Form Laporan Uang Kejepit</h2>
+    <form id="formLaporan">
+        <label>No Amplop:</label>
+        <input type="text" name="noAmplop">
+
+        <label>WSID:</label>
+        <input type="text" name="wsid">
+
+        <label>Lokasi:</label>
+        <input type="text" name="lokasi">
+
+        <label>Tgl Bongkar:</label>
+        <input type="date" name="tglBongkar">
+
+        <label>Jam Bongkar:</label>
+        <input type="time" name="jamBongkar">
+
+        <label>Tgl Kejadian:</label>
+        <input type="date" name="tglKejadian">
+
+        <label>Jam Kejadian:</label>
+        <input type="time" name="jamKejadian">
+
+        <label>Denom 100:</label>
+        <input type="text" name="denom100">
+
+        <label>Denom 50:</label>
+        <input type="text" name="denom50">
+
+        <label>Staf:</label>
+        <input type="text" name="staf">
+
+        <label>TB:</label>
+        <input type="text" name="tb">
+
+        <label>PIC Cencon:</label>
+        <input type="text" name="pic">
+
+        <label>Terjepit di:</label>
+        <input type="text" name="terjepit">
+
+        <button type="submit">Buat Laporan</button>
+    </form>
+
+    <div id="hasilContainer" style="display: none;">
+        <h3>Hasil Laporan:</h3>
+        <textarea id="laporan" rows="12" readonly></textarea><br>
+        <button onclick="copyText()">Copy</button>
+    </div>
+
+    <script>
+        document.getElementById("formLaporan").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const data = new FormData(this);
+
+            const lembar100 = parseInt(data.get("denom100")) || 0;
+            const lembar50 = parseInt(data.get("denom50")) || 0;
+
+            const total100 = lembar100 * 100000;
+            const total50 = lembar50 * 50000;
+
+            const hasil = `
+No Amplop: ${data.get("noAmplop")}
+WSID: ${data.get("wsid")}
+Lokasi: ${data.get("lokasi")}
+Tgl Bongkar: ${data.get("tglBongkar")}
+Jam Bongkar: ${data.get("jamBongkar")}
+Tgl Kejadian: ${data.get("tglKejadian")}
+Jam Kejadian: ${data.get("jamKejadian")}
+Denom 100: ${lembar100} lembar (Rp${total100.toLocaleString("id-ID")})
+Denom 50: ${lembar50} lembar (Rp${total50.toLocaleString("id-ID")})
+Staf: ${data.get("staf")}
+TB: ${data.get("tb")}
+PIC Cencon: ${data.get("pic")}
+Terjepit di: ${data.get("terjepit")}
+            `.trim();
+
+            document.getElementById("laporan").value = hasil;
+            document.getElementById("hasilContainer").style.display = "block";
+        });
+
+        function copyText() {
+            const textArea = document.getElementById('laporan');
+            textArea.select();
+            document.execCommand('copy');
+            alert("Laporan telah disalin!");
+        }
+    </script>
+</body>
+</html>
