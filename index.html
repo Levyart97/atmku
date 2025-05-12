@@ -93,6 +93,7 @@
         <h3>Hasil Laporan:</h3>
         <textarea id="laporan" rows="12" readonly></textarea><br>
         <button onclick="copyText()">Copy</button>
+        <button onclick="shareToWhatsApp()">Kirim via WhatsApp</button>
     </div>
 
     <script>
@@ -131,6 +132,13 @@ Terjepit di: ${data.get("terjepit")}
             textArea.select();
             document.execCommand('copy');
             alert("Laporan telah disalin!");
+        }
+
+        function shareToWhatsApp() {
+            const laporan = document.getElementById("laporan").value;
+            const encodedText = encodeURIComponent(laporan);
+            const whatsappURL = `https://wa.me/?text=${encodedText}`;
+            window.open(whatsappURL, '_blank');
         }
     </script>
 </body>
