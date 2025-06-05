@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Jurnal Trading</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <div id="login">
+      <h2>Masukkan Nama Anda</h2>
+      <input type="text" id="nama" placeholder="Contoh: Andri" />
+      <button onclick="login()">Masuk</button>
+    </div>
+
+    <div id="dashboard" style="display:none">
+      <h2 id="welcome"></h2>
+      <select onchange="gantiMenu(this.value)">
+        <option value="newdata">New Data</option>
+        <option value="input">Input Data</option>
+        <option value="portofolio">Portofolio</option>
+        <option value="statistik">Dashboard</option>
+        <option value="pengaturan">Pengaturan</option>
+      </select>
+
+      <div id="konten"></div>
+    </div>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
